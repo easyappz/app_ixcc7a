@@ -10,7 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including Node.js
 RUN apt-get update && apt-get install -y \
     python3.12 \
     python3.12-dev \
@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     nginx \
     supervisor \
     curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
@@ -37,6 +39,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
+
+# Install and build React
+WORKDIR /app/react
+COPY react/package.json react/package-lock.json* ./
+RUN npm ci --only=production
+COPY react/ .
+RUN npm run build
+WORKDIR /app
+
+# Move React build to the target directory
+RUN mv /app/react/build /app/react_build
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
