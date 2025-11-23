@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password, check_password
 class Member(models.Model):
     username = models.CharField(max_length=150, unique=True)
     password_hash = models.CharField(max_length=255)
+    token = models.CharField(max_length=100, blank=True, default='')
     is_online = models.BooleanField(default=False)
     last_activity = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
