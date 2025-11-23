@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-/**
- * Для ИИ: Это заглушка. Обнови этот компонент. Здесь должен быть начальный экран приложения.
- */
 export const Home = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate('/register');
+  }, [navigate]);
+
   return (
     <div data-easytag="id1-src/components/Home/index.jsx">
-      <div>This is home page</div>
+      <div>Перенаправление...</div>
     </div>
   );
 };
