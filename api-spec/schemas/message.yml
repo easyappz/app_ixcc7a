@@ -1,0 +1,32 @@
+type: object
+required:
+  - id
+  - sender_id
+  - sender_username
+  - text
+  - timestamp
+properties:
+  id:
+    type: integer
+    format: int64
+    description: Уникальный идентификатор сообщения
+    example: 1
+  sender_id:
+    type: integer
+    format: int64
+    description: ID отправителя сообщения
+    example: 1
+  sender_username:
+    type: string
+    description: Имя пользователя отправителя
+    example: "john_doe"
+  text:
+    type: string
+    description: Текст сообщения
+    example: "Привет всем!"
+    maxLength: 1000
+  timestamp:
+    type: string
+    format: date-time
+    description: Время отправки сообщения
+    example: "2025-11-23T21:58:26.723Z"

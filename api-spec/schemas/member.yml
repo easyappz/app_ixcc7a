@@ -1,0 +1,27 @@
+type: object
+required:
+  - id
+  - username
+  - is_online
+  - created_at
+properties:
+  id:
+    type: integer
+    format: int64
+    description: Уникальный идентификатор пользователя
+    example: 1
+  username:
+    type: string
+    description: Имя пользователя
+    example: "john_doe"
+    minLength: 3
+    maxLength: 150
+  is_online:
+    type: boolean
+    description: Статус онлайн пользователя
+    example: true
+  created_at:
+    type: string
+    format: date-time
+    description: Дата и время регистрации пользователя
+    example: "2025-11-23T21:58:26.723Z"

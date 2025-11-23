@@ -1,0 +1,53 @@
+me:
+  get:
+    summary: Получить текущего пользователя
+    description: Возвращает информацию о текущем авторизованном пользователе
+    tags:
+      - Пользователи
+    security:
+      - BearerAuth: []
+    responses:
+      '200':
+        description: Информация о пользователе
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/member.yml'
+      '401':
+        description: Не авторизован
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Требуется авторизация"
+
+online:
+  get:
+    summary: Получить список пользователей онлайн
+    description: Возвращает список всех пользователей, которые находятся онлайн
+    tags:
+      - Пользователи
+    security:
+      - BearerAuth: []
+    responses:
+      '200':
+        description: Список пользователей онлайн
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../schemas/member.yml'
+      '401':
+        description: Не авторизован
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Требуется авторизация"

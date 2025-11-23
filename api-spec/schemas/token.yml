@@ -1,0 +1,11 @@
+type: object
+required:
+  - access_token
+  - member
+properties:
+  access_token:
+    type: string
+    description: JWT токен для авторизации
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  member:
+    $ref: './member.yml'

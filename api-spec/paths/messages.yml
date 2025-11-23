@@ -1,0 +1,101 @@
+messages:
+  get:
+    summary: Получить историю сообщений
+    description: Возвращает историю всех сообщений группового чата
+    tags:
+      - Сообщения
+    security:
+      - BearerAuth: []
+    parameters:
+      - name: limit
+        in: query
+        description: Максимальное количество сообщений для возврата
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: offset
+        in: query
+        description: Смещение для пагинации
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+    responses:
+      '200':
+        description: История сообщений
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  description: Общее количество сообщений
+                  example: 150
+                results:
+                  type: array
+                  items:
+                    $ref: '../schemas/message.yml'
+      '401':
+        description: Не авторизован
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Требуется авторизация"
+  post:
+    summary: Отправить новое сообщение
+    description: Создает новое сообщение в групповом чате
+    tags:
+      - Сообщения
+    security:
+      - BearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - text
+            properties:
+              text:
+                type: string
+                description: Текст сообщения
+                example: "Привет всем!"
+                maxLength: 1000
+                minLength: 1
+    responses:
+      '201':
+        description: Сообщение успешно отправлено
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/message.yml'
+      '400':
+        description: Ошибка валидации данных
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Текст сообщения не может быть пустым"
+      '401':
+        description: Не авторизован
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Требуется авторизация"
