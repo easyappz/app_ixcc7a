@@ -34,7 +34,11 @@ class Member(models.Model):
         return self.username
 
     class Meta:
-        db_table = 'member'
+        db_table = 'api_member'
+        indexes = [
+            models.Index(fields=['username']),
+            models.Index(fields=['token']),
+        ]
 
 
 class Message(models.Model):
@@ -51,4 +55,8 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['timestamp']
-        db_table = 'message'
+        db_table = 'api_message'
+        indexes = [
+            models.Index(fields=['timestamp']),
+            models.Index(fields=['sender']),
+        ]
